@@ -1,0 +1,21 @@
+{
+  "title": "Contos do Tempo Perdido",
+  "description": "Uma jornada através das páginas amareladas da história",
+  "coverImage": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop",
+  "pages": [
+    {
+      "title": "Capítulo I - O Início",
+      "image": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=300&fit=crop",
+      "content": "<p>Era uma vez, em tempos antigos, uma história que se perdeu nas brumas do tempo. As páginas amareladas deste velho livro guardam segredos e memórias de uma época que já não existe mais.</p><p>Cada palavra aqui escrita carrega o peso dos anos, a sabedoria dos anciãos e a magia das narrativas que atravessam gerações. O papel envelhecido sussurra histórias para aqueles que têm paciência para escutar.</p><p>Neste lugar entre o passado e o presente, entre a realidade e a imaginação, encontramos refúgio nas palavras que resistiram ao teste do tempo.</p>"
+    },
+    {
+      "title": "Capítulo II - A Jornada",
+      "image": "https://images.unsplash.com/photo-1476842384041-a57a4f124e2e?w=400&h=300&fit=crop",
+      "content": "<p>Seguindo pelos caminhos tortuosos da narrativa, descobrimos que cada página virada revela um novo horizonte. As letras dançam sobre o papel envelhecido, contando histórias de heróis esquecidos e terras distantes.</p><p>O vento das eras soprou sobre estas páginas, mas as palavras permaneceram firmes, resistindo ao esquecimento. Cada parágrafo é uma janela para um mundo que existiu apenas na imaginação de seu criador.</p><p>E assim continuamos, página após página, descobrindo tesouros escondidos em cada linha deste manuscrito precioso.</p>"
+    },
+    {
+      "title": "Capítulo III - O Final",
+      "content": "<p>Chegamos ao fim desta jornada através das páginas amareladas do tempo. O que começou como simples curiosidade transformou-se em uma aventura inesquecível pelas palavras e histórias deste livro antigo.</p><p>Mas todo final é também um novo começo. As histórias nunca realmente terminam; elas apenas aguardam o próximo leitor que se aventure pelas suas páginas desgastadas.</p><p>Que este livro encontre muitos outros leitores, e que cada um descubra sua própria jornada entre estas linhas escritas há tanto tempo.</p>"
+    }
+  ]
+}
