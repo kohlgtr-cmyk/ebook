@@ -72,7 +72,7 @@ body {
 
 .menu-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -80,29 +80,53 @@ body {
     justify-content: space-between;
 }
 
+/* Imagem da CAPA - Estilo de capa de livro */
+.cover-image {
+  margin-bottom: 20px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  max-height: 60%;
+  border: 4px solid #654321;
+  z-index: 0;
+}
+
+.cover-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+}
+
+
+/* Imagem normal do menu (páginas internas) */
 .menu-image {
-    margin-bottom: 20px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-    max-height: 50%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  max-height: 50%;
 }
 
 .menu-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border: 3px solid #8b6f47;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 3px solid #8b6f47;
+  order: -1;
 }
-
 .menu-title {
     color: #3d2817;
     font-size: 42px;
     margin-bottom: 15px;
     font-weight: normal;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    order: 1;
 }
 
 .menu-description {
@@ -110,6 +134,8 @@ body {
     font-size: 18px;
     font-style: italic;
     margin-bottom: 40px;
+    position: relative;
+    order: 2;
 }
 
 .start-button {
@@ -123,6 +149,9 @@ body {
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    order: 3;
+    z-index: 10;
 }
 
 .start-button:hover {
@@ -141,8 +170,32 @@ body {
 }
 
 .page-content {
-    height: 100%; /* Garante que ele use o espaço disponível para medir o transbordo */
-    overflow: hidden; /* Importante para o cálculo de scrollHeight */
+    color: #3b2b1a; /* MUDE de #2c1810 para este */
+    font-family: 'Crimson Text', 'Georgia', serif; /* ADICIONE */
+    font-size: 16px;
+    line-height: 1.6; /* MUDE de 1.7 para 1.6 */
+    text-align: justify;
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05); /* ADICIONE */
+    flex: 1;
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid rgba(139, 111, 71, 0.3);
+    overflow-y: hidden;
+    padding-right: 10px;
+    min-height: 0;
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+    transition: opacity 0.3s ease;
+}
+
+.chapter-start-page p:first-of-type::first-letter {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+  color: #8b0000;
+  float: left;
+  line-height: 0.8;
+  margin-right: 12px;
+  margin-top: 5px;
 }
 
 .book {
@@ -362,6 +415,7 @@ body {
     .page-content {
         column-count: 1;
         font-size: 16px;
+          column-rule: none; /* ADICIONE ESTA LINHA */
 
     }
 
@@ -380,6 +434,42 @@ body {
     .menu-title {
         font-size: 32px;
     }
+    .cover-image {
+  max-height: 50%;
+}
+}
+    /* ========== ESTILOS ESPECÍFICOS PARA CAPA ========== */
+.book-cover {
+  background: linear-gradient(145deg, #8b6f47 0%, #654321 100%) !important;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.7),
+    inset 0 0 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.book-cover::before {
+  background-image: none !important;
+}
+
+.book-cover::after {
+  background: 
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="leather"><feTurbulence type="fractalNoise" baseFrequency="2" numOctaves="3" /></filter><rect width="100%" height="100%" filter="url(%23leather)" opacity="0.15"/></svg>') !important;
+}
+
+.book-cover .menu-title {
+  color: #f9f3e3;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+}
+
+.book-cover .menu-description {
+  color: #f4e8d0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ========== ESTILOS PARA PÁGINAS INTERNAS ========== */
+.book-pages {
+  background: linear-gradient(to right, #f4e8d0 0%, #f9f3e3 50%, #f4e8d0 100%);
 }
 
 /* Efeito de Papel Amarelado e Envelhecido */
@@ -405,13 +495,6 @@ body {
   pointer-events: none;
 }
 
-/* Tipografia Estilo Manuscrito/Prensa Antiga */
-.page-content {
-  font-family: 'Crimson Text', 'Georgia', serif;
-  color: #3b2b1a; /* Marrom escuro em vez de preto puro */
-  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05);
-  line-height: 1.6;
-}
 
 /* Capitular (A primeira letra grande) */
 .page-content p:first-child::first-letter {
@@ -424,15 +507,6 @@ body {
   margin-top: 5px;
 }
 
-/* Separador central (Lombada) */
-.spine {
-  background: linear-gradient(to right, 
-    rgba(0,0,0,0.1) 0%, 
-    rgba(0,0,0,0.3) 50%, 
-    rgba(0,0,0,0.1) 100%);
-  width: 15px;
-  left: calc(50% - 7.5px);
-}
 
 /* Animação suave de troca de conteúdo */
 .page-flip {

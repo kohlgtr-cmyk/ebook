@@ -48,35 +48,47 @@ function paginateContent(htmlContent) {
 function buildBookPages() {
   allPages = [];
   const container = document.getElementById("pageContent");
-  container.innerHTML = "";
+  
+  // Temporariamente removemos as colunas para uma medição precisa
+  const originalColumnContext = container.style.columnCount;
+  container.style.columnCount = "1"; 
 
   bookData.pages.forEach(chapter => {
+    // paginateContent agora retorna um array de strings (páginas)
     const pages = paginateContent(chapter.content);
+
     pages.forEach((content, index) => {
       allPages.push({
         title: chapter.title,
         content: content,
-        image: index === 0 ? chapter.image || null : null
+        image: index === 0 ? chapter.image || null : null,
+        isChapterStart: index === 0 // Marca se é a primeira página do capítulo
       });
     });
   });
-}
 
+  // Devolvemos o controle de colunas para o CSS (media queries)
+  container.style.columnCount = ""; 
+}
 // ========== RENDERIZAR PÁGINA ==========
 function renderPage() {
   if (allPages.length === 0) return;
-
-  // Garante que o índice não ultrapassa os limites
-  if (currentGlobalPage >= allPages.length) currentGlobalPage = allPages.length - 1;
-  if (currentGlobalPage < 0) currentGlobalPage = 0;
 
   const page = allPages[currentGlobalPage];
   const contentArea = document.getElementById("pageContent");
 
   document.getElementById("pageTitle").innerText = page.title;
+  
+  // Se for início de capítulo, adicionamos a classe da capitular
+  if (page.isChapterStart) {
+    contentArea.classList.add("chapter-start-page");
+  } else {
+    contentArea.classList.remove("chapter-start-page");
+  }
+
   contentArea.innerHTML = page.content;
 
-  // Imagem do Capítulo
+  // Lógica da Imagem
   const imageBox = document.getElementById("chapterImage");
   const img = document.getElementById("chapterImg");
   if (page.image) {
@@ -86,16 +98,15 @@ function renderPage() {
     imageBox.style.display = "none";
   }
 
-  // Atualiza Rodapé e Botões
+  // Paginação e LocalStorage
   document.getElementById("pageNumber").innerText = 
-    `Página ${currentGlobalPage + 1} de ${allPages.length}`;
+    `${currentGlobalPage + 1} de ${allPages.length}`;
   
   document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
   document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
 
   localStorage.setItem("page", currentGlobalPage);
 }
-
 // ========== NAVEGAÇÃO (CORRIGIDA) ==========
 function nextPage() {
   if (currentGlobalPage < allPages.length - 1) {

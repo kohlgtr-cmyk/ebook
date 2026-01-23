@@ -1,21 +1,33 @@
 {
-  "title": "Contos do Tempo Perdido",
+  "title": "Sem Rumo",
   "description": "Uma jornada através das páginas amareladas da história",
-  "coverImage": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop",
+  "coverImage": "/assets/image/01.jpeg",
   "pages": [
     {
-      "title": "Capítulo I - O Início",
-      "image": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=300&fit=crop",
-      "content": "<p>Era uma vez, em tempos antigos, uma história que se perdeu nas brumas do tempo. As páginas amareladas deste velho livro guardam segredos e memórias de uma época que já não existe mais.</p><p>Cada palavra aqui escrita carrega o peso dos anos, a sabedoria dos anciãos e a magia das narrativas que atravessam gerações. O papel envelhecido sussurra histórias para aqueles que têm paciência para escutar.</p><p>Neste lugar entre o passado e o presente, entre a realidade e a imaginação, encontramos refúgio nas palavras que resistiram ao teste do tempo.</p>"
+      "title": "Capítulo I - O Inicio",
+      "content": "<p>Você está preparado(a) para essa nova jornada que irá acontecer e que vai deixar você sem saber o que fazer nem o que está acontecendo e muito menos o que vai acontecer?<p> Mas eu entendo se voce tiver coragem e estômago de sobra</p><p>Pegue a sua água, seu lanche e venha junto nessa jornada.</p><p>Mas eu entendo se você não consegue</p><p>Nem toda aventura vai ser a melhor para o seu gosto<p><p>E está tudo bem</p><p>Existem outras aventuras que serão para você <p>É só você procurar em outro lugar.</p>"
     },
     {
-      "title": "Capítulo II - A Jornada",
-      "image": "https://images.unsplash.com/photo-1476842384041-a57a4f124e2e?w=400&h=300&fit=crop",
-      "content": "<p>Seguindo pelos caminhos tortuosos da narrativa, descobrimos que cada página virada revela um novo horizonte. As letras dançam sobre o papel envelhecido, contando histórias de heróis esquecidos e terras distantes.</p><p>O vento das eras soprou sobre estas páginas, mas as palavras permaneceram firmes, resistindo ao esquecimento. Cada parágrafo é uma janela para um mundo que existiu apenas na imaginação de seu criador.</p><p>E assim continuamos, página após página, descobrindo tesouros escondidos em cada linha deste manuscrito precioso.</p>"
+      "title": "Capítulo I - O Inicio",
+      "content": "<p>Corajoso hein?</p><p>Ou será apenas um descuido?</p><p>Ou ainda quem sabe</p><p>Você é uma pessoa que se diz corajosa Mas talvez não tenha estômago pra isso Tem certeza disso?</p><p>Que quer continuar?</p><p>Vou parar de tentar fazer você desistir da leitura Prometo que valerá a pena</p><p>O que estamos esperando?</p><p></p><p>Bora lá</p>"
     },
     {
-      "title": "Capítulo III - O Final",
-      "content": "<p>Chegamos ao fim desta jornada através das páginas amareladas do tempo. O que começou como simples curiosidade transformou-se em uma aventura inesquecível pelas palavras e histórias deste livro antigo.</p><p>Mas todo final é também um novo começo. As histórias nunca realmente terminam; elas apenas aguardam o próximo leitor que se aventure pelas suas páginas desgastadas.</p><p>Que este livro encontre muitos outros leitores, e que cada um descubra sua própria jornada entre estas linhas escritas há tanto tempo.</p>"
+      "title": "Capítulo I - O Inicio",
+      "content": "<p>Cara, como você pôde fazer isso comigo? - Perguntou Pedro<p>Eu é que pergunto isso. - Disse Carlos desviando de um soco de Pedro<p>Você conseguiu deixar uma galera muito pistola contigo Carlos. - Disse Pedro<p>ugh! Mas como assim, pistola? O que é uma pistola?. - Disse Carlos<p>Mal eu, ouvi dizer que em 2020 D.C. eles usam essa expressão para dizer que alguém ficou muito bravo com você. - Disse Pedro<p>D.C.? - Disse Carlos<p>É meu...- Disse Pedro"
+    },
+    {
+      "title":"Capítulo I - O Inicio",
+      "content":"<p>Depois de Cristo, filho de Deus, a mãe dele engravidou do nada, o pai fazia um treco de madeira, quando ele ficou mais velho transformava água em vinho, caminhava sobre as águas, sumiu um par de anos voltou, curou uns cegos e mais uma pá de coisas que agora não lembro certo, enfim...te contei sobre isso ja, não lembra? - Disse Pedro"
+    },
+    {
+      "title": "Capítulo I - O Inicio",
+      "content": "<p>Não, na verdade, não lembro - respondeu Carlos<p>Mas que seja, o ponto principal da coisa é que: tem uma galera que quer a tua cabeça por causa daquela coroa. - Disse Pedro<p>Mas é coroa de coroa de Rainha ou coroa de uma senhorita de mais idade? - perguntou Carlos<p>Essa parte eu expliquei a mais tempo, isso você não esquece né? - disse Pedro<p>Prioridades - respondeu Carlos<p>No caso foi a coroa da princesa - Disse Pedro<p>Eita - disse Carlos - Tá sabendo que não fui eu né?<p>Ou foi você ou foi o seu irmão gêmeo, um dos dois roubou e agora a princesa mandou te prender, Peraí um minuto. - disse Pedro simplesmente parando a briga no meio"
+    },
+    {
+      "title":"Capítulo I - O Inicio",
+      "content":"<p>Sabe que eu esqueci que você tem um irmão gêmeo? foi mal - disse Pedro.<p>Basicamente, eu tava aqui apanhando de graça? - perguntou Carlos<p>Falando assim até parece uma coisa ruim, é uma maneira muito ruim de explicar assim, mas foi basicamente isso, desculpa o chute de antes. - disse Pedro"
     }
+
+
   ]
 }
