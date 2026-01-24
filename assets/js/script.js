@@ -71,7 +71,7 @@ function buildBookPages() {
   container.style.columnCount = ""; 
 }
 // ========== RENDERIZAR PÁGINA ==========
-function renderPage() {
+function renderPage(direction = 'next') {
   if (allPages.length === 0) return;
 
   // Garante que o índice não ultrapassa os limites
@@ -80,11 +80,23 @@ function renderPage() {
 
   const page = allPages[currentGlobalPage];
   const contentArea = document.getElementById("pageContent");
+  const bookElement = document.querySelector(".book");
 
-  // Adiciona animação de saída
-  contentArea.classList.add("page-exit");
+  // Remove classes antigas
+  bookElement.classList.remove("flipping", "flipping-next", "flipping-prev");
   
-  // Aguarda a animação de saída terminar
+  // Adiciona animação específica dependendo da direção
+  if (window.innerWidth > 768) {
+    // Desktop: direções diferentes
+    bookElement.classList.add(direction === 'next' ? 'flipping-next' : 'flipping-prev');
+  } else {
+    // Mobile: mesma animação
+    bookElement.classList.add("flipping");
+  }
+  
+  contentArea.classList.add("changing");
+  
+  // Aguarda o meio da animação para trocar o conteúdo
   setTimeout(() => {
     // Atualiza o conteúdo
     document.getElementById("pageTitle").innerText = page.title;
@@ -108,33 +120,29 @@ function renderPage() {
     document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
 
     localStorage.setItem("page", currentGlobalPage);
-
-    // Remove animação de saída e adiciona de entrada
-    contentArea.classList.remove("page-exit");
-    contentArea.classList.add("page-enter");
     
-    // Remove a classe de entrada após a animação
-    setTimeout(() => {
-      contentArea.classList.remove("page-enter");
-    }, 600);
-    
-  }, 500); // Tempo da animação de saída
+  }, 400); // Troca no meio da animação
+  
+  // Remove as classes de animação após terminar
+  setTimeout(() => {
+    bookElement.classList.remove("flipping", "flipping-next", "flipping-prev");
+    contentArea.classList.remove("changing");
+  }, 800);
 }
-// ========== NAVEGAÇÃO (CORRIGIDA) ==========
+
 function nextPage() {
   if (currentGlobalPage < allPages.length - 1) {
     currentGlobalPage++;
-    renderPage();
+    renderPage('next'); // ← Passa a direção
   }
 }
 
 function previousPage() {
   if (currentGlobalPage > 0) {
     currentGlobalPage--;
-    renderPage();
+    renderPage('prev'); // ← Passa a direção
   }
 }
-
 // ========== CONTROLES ==========
 async function startReading() {
     const menu = document.getElementById("menuContainer");
@@ -150,7 +158,7 @@ async function startReading() {
 
     setTimeout(() => {
         buildBookPages();
-        renderPage();
+        renderPage('next'); // ← Adicione 'next' aqui
     }, 100);
 }
 
