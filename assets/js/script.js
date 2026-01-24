@@ -180,4 +180,7 @@ function backToMenu() {
     document.getElementById("menuContainer").style.display = "flex";
 }
 
+
+
+
 window.onload = loadBook;
