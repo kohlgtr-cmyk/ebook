@@ -71,65 +71,49 @@ function buildBookPages() {
   container.style.columnCount = ""; 
 }
 // ========== RENDERIZAR PÁGINA ==========
-function renderPage(direction = 'next') {
+function renderPage(direction) {
   if (allPages.length === 0) return;
 
-  // Garante que o índice não ultrapassa os limites
-  if (currentGlobalPage >= allPages.length) currentGlobalPage = allPages.length - 1;
-  if (currentGlobalPage < 0) currentGlobalPage = 0;
-
-  const page = allPages[currentGlobalPage];
-  const contentArea = document.getElementById("pageContent");
   const bookElement = document.querySelector(".book");
+  const contentArea = document.getElementById("pageContent");
 
-  // Remove classes antigas
-  bookElement.classList.remove("flipping", "flipping-next", "flipping-prev");
-  
-  // Adiciona animação específica dependendo da direção
-  if (window.innerWidth > 768) {
-    // Desktop: direções diferentes
-    bookElement.classList.add(direction === 'next' ? 'flipping-next' : 'flipping-prev');
-  } else {
-    // Mobile: mesma animação
-    bookElement.classList.add("flipping");
-  }
-  
-  contentArea.classList.add("changing");
-  
-  // Aguarda o meio da animação para trocar o conteúdo
+  // Ativa as animações (no mobile usará o slideUp, no PC a virada lateral)
+  bookElement.classList.add(direction === 'next' ? "flipping-next" : "flipping-prev");
+  contentArea.classList.add("changing"); // Adicionado para o efeito de fade
+
   setTimeout(() => {
-    // Atualiza o conteúdo
+    const page = allPages[currentGlobalPage];
+    
+    // Troca o conteúdo aqui
     document.getElementById("pageTitle").innerText = page.title;
     contentArea.innerHTML = page.content;
 
-    // Imagem do Capítulo
-    const imageBox = document.getElementById("chapterImage");
-    const img = document.getElementById("chapterImg");
-    if (page.image) {
-      img.src = page.image;
-      imageBox.style.display = "block";
-    } else {
-      imageBox.style.display = "none";
-    }
-
-    // Atualiza Rodapé e Botões
-    document.getElementById("pageNumber").innerText = 
-      `${currentGlobalPage + 1}/${allPages.length}`;
+    // Atualiza o resto (imagem, página, etc)
+    updateLayoutExtras(page); 
     
-    document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
-    document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
-
     localStorage.setItem("page", currentGlobalPage);
-    
-  }, 400); // Troca no meio da animação
-  
-  // Remove as classes de animação após terminar
+  }, 400); 
+
+  // Limpa as classes para permitir nova virada
   setTimeout(() => {
-    bookElement.classList.remove("flipping", "flipping-next", "flipping-prev");
+    bookElement.classList.remove("flipping-next", "flipping-prev");
     contentArea.classList.remove("changing");
   }, 800);
 }
 
+// Função auxiliar para organizar o código
+function updateLayoutExtras(page) {
+  const imageBox = document.getElementById("chapterImage");
+  if (page.image) {
+    document.getElementById("chapterImg").src = page.image;
+    imageBox.style.display = "block";
+  } else {
+    imageBox.style.display = "none";
+  }
+  document.getElementById("pageNumber").innerText = `${currentGlobalPage + 1}/${allPages.length}`;
+  document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
+  document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
+}
 function nextPage() {
   if (currentGlobalPage < allPages.length - 1) {
     currentGlobalPage++;
@@ -137,10 +121,17 @@ function nextPage() {
   }
 }
 
+function nextPage() {
+  if (currentGlobalPage < allPages.length - 1) {
+    currentGlobalPage++;
+    renderPage('next'); // Importante passar 'next'
+  }
+}
+
 function previousPage() {
   if (currentGlobalPage > 0) {
     currentGlobalPage--;
-    renderPage('prev'); // ← Passa a direção
+    renderPage('prev'); // Importante passar 'prev'
   }
 }
 // ========== CONTROLES ==========
