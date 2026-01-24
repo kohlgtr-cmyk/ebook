@@ -2,6 +2,10 @@ let bookData = null;
 let allPages = [];
 let currentGlobalPage = 0;
 
+// URL de um som de virada de página (papel grosso/livro antigo)
+const pageTurnAudio = new Audio("/assets/sound/page-flip.mp3");
+// Dica: Reduz um pouco o volume para não ficar irritante
+pageTurnAudio.volume = 0.5;
 // ========== CARREGAR LIVRO ==========
 async function loadBook() {
   try {
@@ -70,6 +74,15 @@ function buildBookPages() {
   // Devolvemos o controle de colunas para o CSS (media queries)
   container.style.columnCount = ""; 
 }
+
+function playTurnSound() {
+  // Reinicia o áudio para 0, permitindo tocar rápido se o usuário clicar várias vezes
+  pageTurnAudio.currentTime = 0; 
+  pageTurnAudio.play().catch(error => {
+    // Ignora erros de "autoplay" caso o navegador bloqueie antes do primeiro clique
+    console.log("Áudio bloqueado ou não carregado:", error);
+  });
+}
 // ========== RENDERIZAR PÁGINA ==========
 function renderPage(direction) {
   if (allPages.length === 0) return;
@@ -77,8 +90,18 @@ function renderPage(direction) {
   const bookElement = document.querySelector(".book");
   const contentArea = document.getElementById("pageContent");
 
-  // Ativa as animações (no mobile usará o slideUp, no PC a virada lateral)
-  bookElement.classList.add(direction === 'next' ? "flipping-next" : "flipping-prev");
+  // SE houver uma direção (next ou prev), toca o som e inicia a animação
+  if (direction) {
+    playTurnSound(); // <--- O SOM TOCA AQUI
+    
+    // Define a classe de animação baseada na direção
+    if (direction === 'next') {
+        bookElement.classList.add("flipping-next");
+    } else if (direction === 'prev') {
+        bookElement.classList.add("flipping-prev");
+    }
+  }
+
   contentArea.classList.add("changing"); // Adicionado para o efeito de fade
 
   setTimeout(() => {
@@ -114,24 +137,18 @@ function updateLayoutExtras(page) {
   document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
   document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
 }
-function nextPage() {
-  if (currentGlobalPage < allPages.length - 1) {
-    currentGlobalPage++;
-    renderPage('next'); // ← Passa a direção
-  }
-}
 
-function nextPage() {
+function nextPage() { // Mantenha apenas ESTA versão
   if (currentGlobalPage < allPages.length - 1) {
     currentGlobalPage++;
-    renderPage('next'); // Importante passar 'next'
+    renderPage('next');
   }
 }
 
 function previousPage() {
   if (currentGlobalPage > 0) {
     currentGlobalPage--;
-    renderPage('prev'); // Importante passar 'prev'
+    renderPage('prev');
   }
 }
 // ========== CONTROLES ==========
@@ -139,6 +156,11 @@ async function startReading() {
     const menu = document.getElementById("menuContainer");
     const book = document.getElementById("bookContainer");
     
+    pageTurnAudio.play().then(() => {
+        pageTurnAudio.pause();
+        pageTurnAudio.currentTime = 0;
+    }).catch(e => console.log("Audio preload falhou, mas tentaremos novamente na virada."));
+
     menu.style.display = "none";
     book.style.display = "flex";
 

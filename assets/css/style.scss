@@ -706,13 +706,12 @@ body {
     }
 
     .touch-left {
-        width: 40%; /* Lado esquerdo menor para não avançar sem querer */
-        background: rgba(255,0,0,0.1);/*  Dica: desmarque essa linha para ver onde está o botão ao testar */
+        width: 50%; /* Lado esquerdo menor para não avançar sem querer */
     }
 
     .touch-right {
-        width: 60%; /* Lado direito maior (área principal de avanço) */
-    background: rgba(0,255,0,0.1);
+        width: 50%; /* Lado direito maior (área principal de avanço) */
+
     }
 
     /* Esconde os botões físicos originais no mobile */
