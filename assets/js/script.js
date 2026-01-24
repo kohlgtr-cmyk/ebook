@@ -74,38 +74,51 @@ function buildBookPages() {
 function renderPage() {
   if (allPages.length === 0) return;
 
+  // Garante que o índice não ultrapassa os limites
+  if (currentGlobalPage >= allPages.length) currentGlobalPage = allPages.length - 1;
+  if (currentGlobalPage < 0) currentGlobalPage = 0;
+
   const page = allPages[currentGlobalPage];
   const contentArea = document.getElementById("pageContent");
 
-  document.getElementById("pageTitle").innerText = page.title;
+  // Adiciona animação de saída
+  contentArea.classList.add("page-exit");
   
-  // Se for início de capítulo, adicionamos a classe da capitular
-  if (page.isChapterStart) {
-    contentArea.classList.add("chapter-start-page");
-  } else {
-    contentArea.classList.remove("chapter-start-page");
-  }
+  // Aguarda a animação de saída terminar
+  setTimeout(() => {
+    // Atualiza o conteúdo
+    document.getElementById("pageTitle").innerText = page.title;
+    contentArea.innerHTML = page.content;
 
-  contentArea.innerHTML = page.content;
+    // Imagem do Capítulo
+    const imageBox = document.getElementById("chapterImage");
+    const img = document.getElementById("chapterImg");
+    if (page.image) {
+      img.src = page.image;
+      imageBox.style.display = "block";
+    } else {
+      imageBox.style.display = "none";
+    }
 
-  // Lógica da Imagem
-  const imageBox = document.getElementById("chapterImage");
-  const img = document.getElementById("chapterImg");
-  if (page.image) {
-    img.src = page.image;
-    imageBox.style.display = "block";
-  } else {
-    imageBox.style.display = "none";
-  }
+    // Atualiza Rodapé e Botões
+    document.getElementById("pageNumber").innerText = 
+      `${currentGlobalPage + 1}/${allPages.length}`;
+    
+    document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
+    document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
 
-  // Paginação e LocalStorage
-  document.getElementById("pageNumber").innerText = 
-    `${currentGlobalPage + 1} de ${allPages.length}`;
-  
-  document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
-  document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
+    localStorage.setItem("page", currentGlobalPage);
 
-  localStorage.setItem("page", currentGlobalPage);
+    // Remove animação de saída e adiciona de entrada
+    contentArea.classList.remove("page-exit");
+    contentArea.classList.add("page-enter");
+    
+    // Remove a classe de entrada após a animação
+    setTimeout(() => {
+      contentArea.classList.remove("page-enter");
+    }, 600);
+    
+  }, 500); // Tempo da animação de saída
 }
 // ========== NAVEGAÇÃO (CORRIGIDA) ==========
 function nextPage() {
