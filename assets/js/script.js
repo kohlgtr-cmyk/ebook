@@ -23,31 +23,36 @@ async function loadBook() {
   }
 }
 
-// ========== PAGINAR CONTEÚDO ==========
+// ========== PAGINAR CONTEÚDO (VERSÃO MELHORADA) ==========
 function paginateContent(htmlContent) {
   const container = document.getElementById("pageContent");
-  const words = htmlContent.split(" ");
+  const paragraphs = htmlContent.match(/<p>.*?<\/p>/g) || []; // Separa por parágrafos completos
   const pages = [];
-
+  
   container.innerHTML = "";
-  let temp = "";
+  let currentPage = "";
 
-  for (let word of words) {
-    const test = temp + word + " ";
-    container.innerHTML = test;
+  for (let paragraph of paragraphs) {
+    const testContent = currentPage + paragraph;
+    container.innerHTML = testContent;
 
-    if (container.scrollHeight > container.clientHeight) {
-      pages.push(temp.trim());
-      temp = word + " ";
+    // Se ultrapassou o limite, salva a página atual e começa nova
+    if (container.scrollHeight > container.clientHeight && currentPage !== "") {
+      pages.push(currentPage.trim());
+      currentPage = paragraph;
+      container.innerHTML = paragraph;
     } else {
-      temp = test;
+      currentPage = testContent;
     }
   }
 
-  if (temp.trim()) pages.push(temp.trim());
-  return pages;
-}
+  // Adiciona última página se houver conteúdo
+  if (currentPage.trim()) {
+    pages.push(currentPage.trim());
+  }
 
+  return pages.length > 0 ? pages : [htmlContent]; // Retorna conteúdo original se não conseguir paginar
+}
 // ========== CONSTRUIR PÁGINAS ==========
 function buildBookPages() {
   allPages = [];
@@ -127,17 +132,31 @@ function renderPage(direction) {
 // Função auxiliar para organizar o código
 function updateLayoutExtras(page) {
   const imageBox = document.getElementById("chapterImage");
+  const img = document.getElementById("chapterImg"); // ← ADICIONE ESTA LINHA
+  
   if (page.image) {
-    document.getElementById("chapterImg").src = page.image;
+    img.src = page.image;
     imageBox.style.display = "block";
+    
+    // Aplica classe se definida no JSON
+    if (page.imageClass) {
+        img.className = page.imageClass;
+    } else {
+        img.className = '';
+    }
+    
+    // Adiciona evento de clique para abrir modal
+    img.onclick = function() {
+        openModal(this.src, page.title);
+    };
   } else {
     imageBox.style.display = "none";
   }
+  
   document.getElementById("pageNumber").innerText = `${currentGlobalPage + 1}/${allPages.length}`;
   document.getElementById("prevBtn").disabled = (currentGlobalPage === 0);
   document.getElementById("nextBtn").disabled = (currentGlobalPage === allPages.length - 1);
 }
-
 function nextPage() { // Mantenha apenas ESTA versão
   if (currentGlobalPage < allPages.length - 1) {
     currentGlobalPage++;
@@ -180,7 +199,36 @@ function backToMenu() {
     document.getElementById("menuContainer").style.display = "flex";
 }
 
+// ========== MODAL DE IMAGEM ==========
+function openModal(imageSrc, caption) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalCaption = document.getElementById("modalCaption");
+    
+    modal.classList.add("show");
+    modalImg.src = imageSrc;
+    modalCaption.innerHTML = caption || "";
+    
+    // Previne scroll do fundo
+    document.body.style.overflow = "hidden";
+}
 
+function closeModal() {
+    const modal = document.getElementById("imageModal");
+    modal.classList.remove("show");
+    
+    // Restaura scroll
+    document.body.style.overflow = "auto";
+}
+
+// Fechar com tecla ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        closeModal();
+    }
+});
+
+window.onload = loadBook;
 
 
 window.onload = loadBook;

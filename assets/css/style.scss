@@ -270,7 +270,7 @@ body {
 /* Imagem do Capítulo */
 .chapter-image {
     width: 50%;
-    max-height: 30%;
+    max-height: 55%;
     margin: 0 auto 15px;
     border-radius: 4px;
     overflow: hidden;
@@ -725,3 +725,129 @@ body {
     }
 }
 
+/* Classe personalizada para imagem do Carlos */
+.img-carlos {
+   width: 100%;
+    max-width: 100%;
+    height: auto; /* ← IMPORTANTE: mantém proporção */
+    display: block;
+    margin: 20px auto;
+    border: 4px solid #654321;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    filter: sepia(20%) contrast(1.1);
+    transition: transform 0.3s ease;
+    object-fit: fill; /* ← IMPORTANTE: mostra imagem completa */
+}
+
+
+/* ========== MODAL DE IMAGEM ========== */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.image-modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90vh;
+    border: 4px solid #8b6f47;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    animation: zoomIn 0.3s ease-in-out;
+}
+
+.modal-close {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: #f9f3e3;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #ff6b6b;
+    transform: scale(1.2);
+}
+
+.modal-caption {
+    margin: 20px auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #f9f3e3;
+    padding: 15px;
+    font-size: 18px;
+    font-family: 'Georgia', serif;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+/* Cursor indicando que é clicável */
+.chapter-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chapter-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+    
+    .modal-close {
+        top: 15px;
+        right: 25px;
+        font-size: 40px;
+    }
+    
+    .modal-caption {
+        font-size: 16px;
+        width: 90%;
+    }
+}
