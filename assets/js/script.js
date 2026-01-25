@@ -2,10 +2,51 @@ let bookData = null;
 let allPages = [];
 let currentGlobalPage = 0;
 
-// URL de um som de virada de página (papel grosso/livro antigo)
+// ========== ÁUDIOS ==========
+// Som de virada de página
 const pageTurnAudio = new Audio("/assets/sound/page-flip.mp3");
-// Dica: Reduz um pouco o volume para não ficar irritante
-pageTurnAudio.volume = 0.5;
+pageTurnAudio.volume = 0.7; // Volume do som de virar página
+
+// Música ambiente (BGM)
+const bgMusic = new Audio("/assets/sound/ambient-music.mp3");
+bgMusic.volume = 0.15; // Volume BAIXO para ficar de fundo
+bgMusic.loop = true; // Toca em loop infinito
+
+// Variável para controlar se a música já começou
+let musicStarted = false;
+
+// ========== CONTROLE DE ÁUDIO ==========
+
+// Inicia a música ambiente
+function startBackgroundMusic() {
+    if (!musicStarted) {
+        bgMusic.play().catch(error => {
+            console.log("Música bloqueada pelo navegador. Será iniciada no primeiro clique.");
+        });
+        musicStarted = true;
+    }
+}
+
+// Para a música ambiente
+function stopBackgroundMusic() {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+    musicStarted = false;
+}
+
+// Abaixa temporariamente o volume da BGM durante o som de virar página
+function duckBGMusic() {
+    // Salva volume original
+    const originalVolume = bgMusic.volume;
+    
+    // Abaixa para quase inaudível
+    bgMusic.volume = 0.05;
+    
+    // Volta ao volume normal após o som de virar terminar
+    setTimeout(() => {
+        bgMusic.volume = originalVolume;
+    }, 1000); // 1 segundo (duração aproximada do som de virar)
+}
 // ========== CARREGAR LIVRO ==========
 async function loadBook() {
   try {
@@ -81,10 +122,12 @@ function buildBookPages() {
 }
 
 function playTurnSound() {
-  // Reinicia o áudio para 0, permitindo tocar rápido se o usuário clicar várias vezes
+  // Abaixa o volume da música de fundo
+  duckBGMusic();
+  
+  // Toca o som de virar página
   pageTurnAudio.currentTime = 0; 
   pageTurnAudio.play().catch(error => {
-    // Ignora erros de "autoplay" caso o navegador bloqueie antes do primeiro clique
     console.log("Áudio bloqueado ou não carregado:", error);
   });
 }
@@ -175,6 +218,10 @@ async function startReading() {
     const menu = document.getElementById("menuContainer");
     const book = document.getElementById("bookContainer");
     
+    // Inicia a música ambiente
+    startBackgroundMusic();
+    
+    // Preload do som de virar página
     pageTurnAudio.play().then(() => {
         pageTurnAudio.pause();
         pageTurnAudio.currentTime = 0;
@@ -190,11 +237,14 @@ async function startReading() {
 
     setTimeout(() => {
         buildBookPages();
-        renderPage('next'); // ← Adicione 'next' aqui
+        renderPage('next');
     }, 100);
 }
 
 function backToMenu() {
+    // Para a música ambiente
+    stopBackgroundMusic();
+    
     document.getElementById("bookContainer").style.display = "none";
     document.getElementById("menuContainer").style.display = "flex";
 }
