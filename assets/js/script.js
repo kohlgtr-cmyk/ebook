@@ -5,48 +5,68 @@ let currentGlobalPage = 0;
 // ========== ÁUDIOS ==========
 // Som de virada de página
 const pageTurnAudio = new Audio("/assets/sound/page-flip.mp3");
-pageTurnAudio.volume = 0.7; // Volume do som de virar página
+pageTurnAudio.volume = 0.7;
 
-// Música ambiente (BGM)
-const bgMusic = new Audio("/assets/sound/ambient-music.mp3");
-bgMusic.volume = 0.15; // Volume BAIXO para ficar de fundo
-bgMusic.loop = true; // Toca em loop infinito
+// Música ambiente (BGM) - agora gerenciada dinamicamente
+let bgMusic = null;
+let currentMusicUrl = null;
+const defaultVolume = 0.15;
 
-// Variável para controlar se a música já começou
-let musicStarted = false;
+// ========== CONTROLE DE ÁUDIO (VERSÃO COM MÚSICA POR PÁGINA) ==========
 
-// ========== CONTROLE DE ÁUDIO ==========
-
-// Inicia a música ambiente
-function startBackgroundMusic() {
-    if (!musicStarted) {
-        bgMusic.play().catch(error => {
-            console.log("Música bloqueada pelo navegador. Será iniciada no primeiro clique.");
-        });
-        musicStarted = true;
+// Troca ou inicia a música de fundo
+function changeBackgroundMusic(musicUrl) {
+    // Se não há URL de música, mantém a atual ou para
+    if (!musicUrl) {
+        return;
     }
-}
-
-// Para a música ambiente
-function stopBackgroundMusic() {
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
-    musicStarted = false;
-}
-
-// Abaixa temporariamente o volume da BGM durante o som de virar página
-function duckBGMusic() {
-    // Salva volume original
-    const originalVolume = bgMusic.volume;
     
-    // Abaixa para quase inaudível
+    // Se já está tocando a mesma música, não faz nada
+    if (currentMusicUrl === musicUrl && bgMusic && !bgMusic.paused) {
+        return;
+    }
+    
+    // Para a música atual se existir
+    if (bgMusic) {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }
+    
+    // Cria novo objeto de áudio com a música da página
+    bgMusic = new Audio(musicUrl);
+    bgMusic.volume = defaultVolume;
+    bgMusic.loop = true;
+    currentMusicUrl = musicUrl;
+    
+    // Toca a nova música
+    bgMusic.play().catch(error => {
+        console.log("Música bloqueada pelo navegador:", error);
+    });
+}
+
+// Para completamente a música
+function stopBackgroundMusic() {
+    if (bgMusic) {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }
+    currentMusicUrl = null;
+}
+
+// Abaixa temporariamente o volume durante o som de virar página
+function duckBGMusic() {
+    if (!bgMusic) return;
+    
+    const originalVolume = bgMusic.volume;
     bgMusic.volume = 0.05;
     
-    // Volta ao volume normal após o som de virar terminar
     setTimeout(() => {
-        bgMusic.volume = originalVolume;
-    }, 1000); // 1 segundo (duração aproximada do som de virar)
+        if (bgMusic) {
+            bgMusic.volume = originalVolume;
+        }
+    }, 1000);
 }
+
 // ========== CARREGAR LIVRO ==========
 async function loadBook() {
   try {
@@ -99,12 +119,10 @@ function buildBookPages() {
   allPages = [];
   const container = document.getElementById("pageContent");
   
-  // Temporariamente removemos as colunas para uma medição precisa
   const originalColumnContext = container.style.columnCount;
   container.style.columnCount = "1"; 
 
   bookData.pages.forEach(chapter => {
-    // paginateContent agora retorna um array de strings (páginas)
     const pages = paginateContent(chapter.content);
 
     pages.forEach((content, index) => {
@@ -112,15 +130,15 @@ function buildBookPages() {
         title: chapter.title,
         content: content,
         image: index === 0 ? chapter.image || null : null,
-        isChapterStart: index === 0 // Marca se é a primeira página do capítulo
+        imageClass: index === 0 ? chapter.imageClass || null : null, // ← ADICIONE
+        music: index === 0 ? chapter.music || null : null, // ← ADICIONE
+        isChapterStart: index === 0
       });
     });
   });
 
-  // Devolvemos o controle de colunas para o CSS (media queries)
   container.style.columnCount = ""; 
 }
-
 function playTurnSound() {
   // Abaixa o volume da música de fundo
   duckBGMusic();
@@ -175,25 +193,29 @@ function renderPage(direction) {
 // Função auxiliar para organizar o código
 function updateLayoutExtras(page) {
   const imageBox = document.getElementById("chapterImage");
-  const img = document.getElementById("chapterImg"); // ← ADICIONE ESTA LINHA
+  const img = document.getElementById("chapterImg");
   
+  // Atualiza imagem
   if (page.image) {
     img.src = page.image;
     imageBox.style.display = "block";
     
-    // Aplica classe se definida no JSON
     if (page.imageClass) {
         img.className = page.imageClass;
     } else {
         img.className = '';
     }
     
-    // Adiciona evento de clique para abrir modal
     img.onclick = function() {
         openModal(this.src, page.title);
     };
   } else {
     imageBox.style.display = "none";
+  }
+  
+  // ← ADICIONE: Troca música se a página tiver uma
+  if (page.music) {
+    changeBackgroundMusic(page.music);
   }
   
   document.getElementById("pageNumber").innerText = `${currentGlobalPage + 1}/${allPages.length}`;
@@ -218,26 +240,22 @@ async function startReading() {
     const menu = document.getElementById("menuContainer");
     const book = document.getElementById("bookContainer");
     
-    // Inicia a música ambiente
-    startBackgroundMusic();
-    
     // Preload do som de virar página
     pageTurnAudio.play().then(() => {
         pageTurnAudio.pause();
         pageTurnAudio.currentTime = 0;
-    }).catch(e => console.log("Audio preload falhou, mas tentaremos novamente na virada."));
+    }).catch(e => console.log("Audio preload falhou."));
 
     menu.style.display = "none";
     book.style.display = "flex";
 
-    // Espera as fontes carregarem para o cálculo ser exato
     if (document.fonts) {
         await document.fonts.ready;
     }
 
     setTimeout(() => {
         buildBookPages();
-        renderPage('next');
+        renderPage('next'); // A música será iniciada aqui
     }, 100);
 }
 

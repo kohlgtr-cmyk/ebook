@@ -5,11 +5,13 @@
   "pages": [
     {
       "title": "",
-      "content": "<p>Você está preparado(a) para essa nova jornada que irá acontecer e que vai deixar você sem saber o que fazer nem o que está acontecendo e muito menos o que vai acontecer?<p> Mas eu entendo se voce tiver coragem e estômago de sobra.<p>Pegue a sua água, seu lanche e venha junto nessa jornada. Mas eu entendo se você não consegue<p>Nem toda aventura vai ser a melhor para o seu gosto, e está tudo bem<p>Existem outras aventuras que serão para você<p>É só você procurar em outro lugar."
+      "content": "<p>Você está preparado(a) para essa nova jornada que irá acontecer e que vai deixar você sem saber o que fazer nem o que está acontecendo e muito menos o que vai acontecer?<p> Mas eu entendo se voce tiver coragem e estômago de sobra.<p>Pegue a sua água, seu lanche e venha junto nessa jornada. Mas eu entendo se você não consegue<p>Nem toda aventura vai ser a melhor para o seu gosto, e está tudo bem<p>Existem outras aventuras que serão para você<p>É só você procurar em outro lugar.",
+      "music":"/assets/sound/1-convite.mp3" 
     },
     {
       "title": "",
-      "content": "<p>Corajoso hein?<p>Ou será apenas um descuido?<p>Ou ainda quem sabe<p>Você é uma pessoa que se diz corajosa Mas talvez não tenha estômago pra isso.<p>Tem certeza disso?<p>Você quer continuar?<p>Vou parar de tentar fazer você desistir da leitura<p>Prometo que valerá a pena<p>O que estamos esperando?<p><p>Bora lá"
+      "content": "<p>Corajoso hein?<p>Ou será apenas um descuido?<p>Ou ainda quem sabe<p>Você é uma pessoa que se diz corajosa Mas talvez não tenha estômago pra isso.<p>Tem certeza disso?<p>Você quer continuar?<p>Vou parar de tentar fazer você desistir da leitura<p>Prometo que valerá a pena<p>O que estamos esperando?<p><p>Bora lá",
+      "music":"/assets/sound/1-convite.mp3"
     },
     {
       "title": "Capítulo I - O Inicio",
