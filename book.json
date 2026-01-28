@@ -49,15 +49,18 @@
       "_comment":"pag8",
       "title":"",
       "image":"/assets/image/03.png",
+      "music":"/assets/sound/calm.mp3",
       "content":"<p>Mas pai, não consigo lembrar, quem são eles mesmo? - perguntou Lucas<p>Tá bom, vou contar essa história desde o inicio. Ela começa mais ou menos assim..."
     },
     {
       "_comment":"pag9",
       "title":"",
+      "music":"/assets/sound/calm.mp3",
       "content":"<p>Nessa cidade há um jovem, um pouco diferente dos outros assim podemos dizer(pra não ficar tão feio pra ele),<p>pois todos os dias ele senta-se no tronco caído de uma árvore, sempre na espera do nascer do sol, um hábito um pouco diferente do normal.<p>O nome dele é Carlos.<p>Em Zandakh, uma cidade de vamos dizer, uns 15 mil habitantes(juntando vivos, mortos, e feridos), mais ou menos isso (ou 4562 habitantes para ser exato), <p>que pertence ao reino de Ganorthin, e que graças aos rios Oklawora e Macroziin e ao grande e temido mar do oeste,"
     },
     {
       "_comment":"pag10",
+      "music":"/assets/sound/calm.mp3",
       "title":"",
       "content":"<p>A cidade desenvolveu um ponto de comércio importante da região, pois a cidade foi erguida perto da junção desses rios.",
       "image":"/assets/image/map.png"
@@ -67,6 +70,7 @@
       "title":"",
       "image":"/assets/image/carlos.png",
       "imageClass":"img-carlos",
+      "music":"/assets/sound/main1.mp3",
       "content":"<p>Carlos sempre foi (bastante) diferente dos outros rapazes da cidade, pois ele não era muito forte (comparando com um javali), mas tinha certa habilidade com espadas (nunca se cortou até onde se sabia),"
     },
     {
@@ -74,26 +78,31 @@
       "title":"",
       "content":"<p>Mas onde ele se sobressaia mesmo era no uso do arco e flecha, outra característica forte dele é a sua habilidade para a forja(ele usou o calor e os dedos roxos para se sentir mais importante).",
       "image":"/assets/image/04.png", 
+      "music":"/assets/sound/main1.mp3",
       "imageClass":"img-carlos"
     },
     {
       "_comment":"pag13",
+      "music":"/assets/sound/main1.mp3",
       "title":"",
       "content":"<p>Enquanto que os outros rapazes de Zandakh tinham os cabelos loiros ou ruivos e olhos verdes ou castanhos, Carlos é o único que tem cabelos pretos e olhos azuis, isso ajudou em sua infância a ser chamado por alguns como a <em>\"ovelha negra\"</em>.<p>O que poucos sabiam é que quando Carlos era pequeno, seus pais morreram, a sua mãe morreu no parto e o seu pai uns anos depois, nao se sabe ao certo o que aconteceu, <p>Ou pelo menos não contaram para Carlos, mas existem muitos rumores."
     },
     {
       "_comment":"pag14",
       "title":"",
+      "music":"/assets/sound/main1.mp3",
       "content":"<p>Após seus pais falecerem ainda quando ele era pequeno, Carlos se tornou muito sombrio aos olhos das outras pessoas, porque ele evitava conversar, não gostava que ficassem falando sobre e dele.<p>E também porque ele não queria ninguém preocupado com ele, ou como ele mesmo dizia <em>\"Eu não quero ser um peso nem para alguém ou no mundo\".</em><p>Então as coisas sempre estavam bem quando alguém perguntava, mesmo que ele ja ficou vários dias sem comer nada, ele precisou ser um adulto responsável mesmo tendo apenas 12 anos de idade."
     },
     {
       "_comment":"pag15",
+      "music":"/assets/sound/main1.mp3",
       "title":"",
       "content":"<p>Mas o pior sempre foi ver o olhar de pena que ele via quando olhava nos olhos de alguém que estava falando com ele.<p>Carlos agora com seus 19 anos de idade, se levanta da cama ainda antes de o sol nascer, lava seus olhos para tirar a sujeira de mais uma noite que ele tentou <em>\"dormir de verdade\"</em>, mesmo sem muito sucesso, mas ele partiu para mais uma rotina sua de toda manhã.<p>Todos os dias pela manha Carlos após se levantar da cama vai até um tronco de carvalho que está caído em uma parte do terreno da sua cabana, juntamente com o seu violino, ele então se apoia naquele tronco e espera o sol nascer."
     },
     {
       "_comment":"pag16",
       "title":"",
+      "music":"/assets/sound/main.mp3",
       "content":"<p>Somente quando os primeiros raios de sol aparecem, ai sim ele começa a tocar, qual melodia? Aquela que os seus dedos mandarem.<p>Carlos adquiriu o hábito de se sentar ao ar livre toda manhã antes do sol nascer e ficar esperando até a alvorada ainda quando era criança, depois que teve uma doença muito grave e a sua vida ficou por um fio, um fio muito, mas muito fino mesmo.<p>Pois essa doença quando atinge uma criança as chances de sobreviver são muito, mas muito raras.<p>A sua mãe infelizmente acabou morrendo no parto após algumas complicações."
     },
     {
